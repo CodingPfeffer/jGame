@@ -47,20 +47,7 @@ import com.jme3.system.JmeContext.Type;
 import com.jme3.system.JmeSystem;
 
 /**
- * <code>SimpleApplication</code> is the base class for all jME3 Applications.
- * <code>SimpleApplication</code> will display a statistics view
- * using the {@link com.jme3.app.StatsAppState} AppState. It will display
- * the current frames-per-second value on-screen in addition to the statistics.
- * Several keys have special functionality in <code>SimpleApplication</code>:<br/>
- *
- * <table>
- * <tr><td>Esc</td><td>- Close the application</td></tr>
- * <tr><td>C</td><td>- Display the camera position and rotation in the console.</td></tr>
- * <tr><td>M</td><td>- Display memory usage in the console.</td></tr>
- * </table>
- * 
- * A {@link com.jme3.app.FlyCamAppState} is by default attached as well and can
- * be removed by calling <code>stateManager.detach( stateManager.getState(FlyCamAppState.class) );</code>
+ * Slightly changed <code>SimpleApplication</code> from jME3.
  */
 public abstract class SideScrollGame extends Application {
 
@@ -70,9 +57,9 @@ public abstract class SideScrollGame extends Application {
     public static final String INPUT_MAPPING_HIDE_STATS = "SIMPLEAPP_HideStats";
                                                                          
     protected Node rootNode = new Node("Root Node");
-    protected Node guiNode = new Node("Gui Node");
+    protected static Node guiNode = new Node("Gui Node");
     protected BitmapText fpsText;
-    protected BitmapFont guiFont;
+    protected static BitmapFont guiFont;
     protected FlyByCamera flyCam;
     protected boolean showSettings = true;
     private AppActionListener actionListener = new AppActionListener();
@@ -95,7 +82,7 @@ public abstract class SideScrollGame extends Application {
     }
 
     public SideScrollGame() {
-        this( new StatsAppState(), new FlyCamAppState(), new DebugKeysAppState() );
+        this( new StatsAppState(guiNode, guiFont), new FlyCamAppState(), new DebugKeysAppState() );
     }
 
     public SideScrollGame( AppState... initialStates ) {
